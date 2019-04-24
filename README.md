@@ -8,3 +8,7 @@ Inputs will be:
 - Low Pass -- A floor value to block sinusoid motion to a certain degree
 - High Pass -- A ceiling value to block sinusoid motion to a certain degree
 - Decay -- rate of decay of sinusoid amplitude
+
+Outputs will be:
+- Transform Value -- the secondary action transform to be applied as artist sees fit
+- Delta Value -- the delta detected, to be applied as the artist sees fit
