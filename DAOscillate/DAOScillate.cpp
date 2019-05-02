@@ -30,8 +30,27 @@ MStatus DAOscillateNode::compute(const MPlug& plug, MDataBlock& data)
 {
 	MStatus status;
 
+
+	// Get the delta from the current key (Using get plug and similar to chart backwards upstream)
+
+
+	/* Explode the loop!  Much like stuff being "* time.DeltaTime" in unity, we can act like we are moving
+	through an iteration this way.
+	*/
+
+	/*
+	curframe.x = relativeFrame.x + delta * accel(delta, relativeFrame) * amplitude * (x > curvex ?1= -1)
+	curframe_accel = relativeFrame_accell + delta * damp
+
+
+	*/
+
+	// Call the function written at the Imperial
+
 	return MS::kSuccess;
 }
+
+
 
 
 MStatus DAOscillateNode::initialize()
