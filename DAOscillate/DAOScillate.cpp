@@ -1,5 +1,7 @@
 #include "DAOscillate.h"
 
+#include <maya/MPlugArray.h>
+
 #include <cmath>
 
 MTypeId DAOscillateNode::id(0x00001967);
@@ -10,6 +12,8 @@ MObject DAOscillateNode::aDampening;
 MObject DAOscillateNode::aPeriod;
 MObject DAOscillateNode::aOutChannel;
 MObject DAOscillateNode::aTime;
+
+void FindKeyNode(const MPlug& plug);
 
 DAOscillateNode::DAOscillateNode()
 {
@@ -30,8 +34,16 @@ MStatus DAOscillateNode::compute(const MPlug& plug, MDataBlock& data)
 {
 	MStatus status;
 
+	if((plug != aInChannel) || (plug != aOutChannel) || (plug != aTime) ){
+		return MS::kUnknownParameter;
+	}
 
-	// Get the delta from the current key (Using get plug and similar to chart backwards upstream)
+	float nx = 0;
+	float cx = data.inputValue(aInChannel, &status).asFloat();
+
+	// The input channel value right now is not enough-- we need to compare to it's past.
+	FindKeyNode(plug);
+	
 
 
 	/* Explode the loop!  Much like stuff being "* time.DeltaTime" in unity, we can act like we are moving
@@ -50,6 +62,20 @@ MStatus DAOscillateNode::compute(const MPlug& plug, MDataBlock& data)
 	return MS::kSuccess;
 }
 
+
+void FindKeyNode(const MPlug& plug)
+{
+
+	// will hold the connections to this node
+	MPlugArray plugs;
+	// get input plugs
+	plug.connectedTo(plugs, true, false);
+
+	// plugs now contains all the connected plugs to THIS node.
+	// Now sort through and find the anim curve node.
+
+
+}
 
 
 
